@@ -54,6 +54,12 @@
   .hero-left { flex: 1.2; }
   .hero-right { flex: 1; text-align: center; }
   .hero-right img { max-width: 100%; height: auto; }
+  .hero-right video {
+    display: block; width: 100%; height: auto;
+    border-radius: 14px; border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgba(27,36,48,.12);
+    background: #fff;
+  }
   .kicker {
     display: inline-block; color: var(--red); font-weight: 700;
     font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
@@ -251,7 +257,8 @@
       <p class="meta" data-i18n="meta"></p>
     </div>
     <div class="hero-right">
-      <img src="klaoli_logo_trans.png" alt="Klaoli logo">
+      <video src="klaoli-demo.mp4" poster="klaoli-demo-poster.png"
+             autoplay loop muted playsinline></video>
     </div>
   </div>
 
