@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klaoli Box · Agent Box 项目介绍（占位版）</title>
+<meta name="description" content="Klaoli Box 项目介绍页占位版本，产品核心内容与独立产品页面依然留空，附企业证照与联系方式。">
+<style>
+  /* Design tokens 参考仓库 qianduan/src/app/globals.css（深色向导 / 珊瑚橙 + 青色）。
+     仅借用配色与排布语言，未引入仓库字体、图片、业务代码或文案。 */
+  :root {
+    --bg-deep: #111827;
+    --bg-surface: #172030;
+    --bg-elevated: #1e2939;
+    --coral-bright: #f97316;
+    --coral-mid: #ea580c;
+    --coral-dark: #c2410c;
+    --cyan-bright: #00e5cc;
+    --cyan-mid: #14b8a6;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --border-subtle: rgba(54, 65, 83, 0.6);
+    --border-accent: rgba(249, 115, 22, 0.3);
+    --surface-card: rgba(23, 32, 48, 0.75);
+    --surface-card-strong: rgba(23, 32, 48, 0.9);
+    --font-display: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    --font-body: "Segoe UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #4b5563 var(--bg-deep); }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+  ::selection { background: rgba(249,115,22,.3); color: #fff; }
+  body {
+    margin: 0; background: var(--bg-deep); color: var(--text-primary);
+    font-family: var(--font-body); line-height: 1.7;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    min-height: 100vh;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); }
+  a { color: inherit; }
+  a:focus-visible, select:focus-visible { outline: 2px solid var(--coral-bright); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+  /* 星点 + 星云背景（照仓库 .bg-stars / .bg-nebula） */
+  .bg-stars {
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.15) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,.10) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,.12) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 60%, rgba(255,255,255,.08) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,.10) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 90%, rgba(255,255,255,.07) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,.11) 0%, transparent 100%);
+  }
+  .bg-nebula::before {
+    content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(249,115,22,.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(0,229,204,.04) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+  .page { position: relative; z-index: 1; }
+
+  .title-gradient {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .card-surface {
+    background: var(--surface-card); border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(12px); box-shadow: 0 4px 24px rgba(0,0,0,.2);
+  }
+  .btn-gradient {
+    background: linear-gradient(135deg, var(--coral-bright) 0%, var(--coral-dark) 100%);
+    box-shadow: 0 4px 20px rgba(249,115,22,.25); transition: opacity .2s, transform .2s, box-shadow .2s;
+  }
+  .btn-gradient:hover { opacity: .9; transform: scale(1.03); box-shadow: 0 8px 30px rgba(249,115,22,.35); }
+  .btn-quiet { background: rgba(23,32,48,.7); border: 1px solid var(--border-subtle); transition: border-color .2s, color .2s; }
+  .btn-quiet:hover { border-color: var(--border-accent); color: #fff; }
+
+  /* ---------- header（仿 SetupWizard sticky header） ---------- */
+  .topbar { position: sticky; top: 0; z-index: 50; background: rgba(17,24,39,.86); border-bottom: 1px solid var(--border-subtle); backdrop-filter: blur(12px); }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand-logo { width: 40px; height: 40px; display: block; flex: none; }
+  .brand-logo img { width: 100%; height: 100%; object-fit: contain; display: block; filter: drop-shadow(0 2px 10px rgba(249,115,22,.45)); }
+  .brand-txt { display: flex; flex-direction: column; line-height: 1.15; }
+  .brand-txt b { font-family: var(--font-display); font-size: 20px; font-weight: 800; }
+  .brand-txt small { font-size: 10.5px; color: var(--text-muted); }
+  .head-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .steps { display: flex; gap: 6px; flex-wrap: wrap; }
+  .step { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; }
+  .step i { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; font-size: 10.5px; font-weight: 800; color: #fff; font-style: normal; }
+  .step.done { color: var(--cyan-bright); background: rgba(0,229,204,.1); }
+  .step.done i { background: var(--cyan-bright); color: #04211f; }
+  .step.active { color: var(--coral-bright); background: rgba(249,115,22,.1); }
+  .step.active i { background: var(--coral-bright); }
+  .step.idle { color: var(--text-muted); background: var(--bg-surface); }
+  .step.idle i { background: var(--text-muted); }
+  .steps-label { font-size: 10.5px; color: var(--text-muted); }
+  .navlinks { display: flex; gap: 12px; flex-wrap: wrap; }
+  .navlinks a { font-size: 12.5px; color: var(--text-secondary); text-decoration: none; }
+  .navlinks a:hover { color: var(--coral-bright); }
+  .lang-select {
+    font: inherit; font-size: 12px; color: var(--text-secondary); background: var(--bg-surface);
+    border: 1px solid var(--border-subtle); border-radius: 8px; padding: 5px 8px; max-width: 165px;
+  }
+  .lang-select option { background: var(--bg-surface); color: var(--text-primary); }
+
+  /* ---------- hero（仿 WelcomeStep 居中卡片） ---------- */
+  .hero { padding: 46px 0 8px; display: flex; justify-content: center; }
+  .hero-card { width: 100%; max-width: 660px; border-radius: 20px; padding: 36px 34px 32px; text-align: center; }
+  .hero-logo {
+    width: 132px; height: 132px; margin: 0 auto;
+    animation: float 3s ease-in-out infinite;
+  }
+  .hero-logo img { width: 100%; height: 100%; object-fit: contain; display: block; filter: drop-shadow(0 10px 30px rgba(249,115,22,.5)); }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .hero h1 { font-size: 34px; font-weight: 800; margin: 16px 0 4px; letter-spacing: -.5px; }
+  .h1sub { font-size: 15px; color: var(--text-secondary); margin: 0 0 18px; }
+  .hero p.lead { font-size: 14.5px; color: var(--text-secondary); max-width: 540px; margin: 0 auto 20px; }
+  .state { display: inline-flex; align-items: center; gap: 9px; background: rgba(249,115,22,.1); border: 1px solid var(--border-accent); color: #fdba74; border-radius: 999px; padding: 6px 14px; font-size: 12.5px; font-weight: 700; margin-bottom: 22px; }
+  .state .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--coral-bright); }
+  .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 11px 20px; border-radius: 10px; font-size: 13.5px; font-weight: 700; }
+  .btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .logo-caption { font-size: 11.5px; color: var(--text-muted); margin: 12px 0 0; }
+
+  /* ---------- meta stat cards（仿 DoneStep 状态卡） ---------- */
+  .meta-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 22px; }
+  .meta-item { border-radius: 12px; padding: 14px 15px; }
+  .meta-item small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .5px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; }
+  .meta-item b { font-size: 13.5px; font-weight: 700; color: var(--text-primary); word-break: break-all; }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 42px; }
+  .sec-head { margin-bottom: 18px; }
+  .kicker { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 1.6px; color: var(--coral-bright); text-transform: uppercase; margin-bottom: 6px; }
+  .sec-head h2 { font-size: 21px; font-weight: 800; margin: 0 0 6px; }
+  .sec-head p { font-size: 13.5px; color: var(--text-secondary); margin: 0; max-width: 760px; }
+
+  /* ---------- slots（空内容卡片） ---------- */
+  .slots { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+  .slot { background: rgba(17,24,39,.45); border: 1.5px dashed rgba(249,115,22,.28); border-radius: 14px; padding: 20px 18px; min-height: 132px; display: flex; flex-direction: column; }
+  .slot .num { font-size: 11px; font-weight: 800; color: var(--coral-bright); letter-spacing: 1px; }
+  .slot h3 { font-size: 15.5px; font-weight: 800; margin: 8px 0 6px; color: var(--text-primary); }
+  .slot .empty { margin-top: auto; align-self: flex-start; font-size: 11.5px; font-weight: 700; color: #fdba74; background: rgba(249,115,22,.1); border: 1px solid var(--border-accent); border-radius: 6px; padding: 3px 9px; }
+
+  /* ---------- 产品页占位 ---------- */
+  .product-void { border: 1.5px dashed var(--border-subtle); border-radius: 16px; background: rgba(17,24,39,.45); padding: 34px 24px; text-align: center; }
+  .product-void svg { width: 38px; height: 38px; stroke: var(--text-muted); fill: none; stroke-width: 1.5; }
+  .product-void h3 { font-size: 16px; font-weight: 800; margin: 12px 0 6px; }
+  .product-void p { font-size: 13px; color: var(--text-muted); margin: 0 auto 16px; max-width: 560px; }
+  .void-chip { display: inline-block; font-size: 11.5px; font-weight: 700; color: var(--text-secondary); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 999px; padding: 4px 12px; }
+
+  /* ---------- table ---------- */
+  .tbl-wrap { border-radius: var(--radius); overflow-x: auto; border: 1px solid var(--border-subtle); background: var(--surface-card); }
+  table { width: 100%; border-collapse: collapse; min-width: 520px; }
+  th, td { padding: 12px 16px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+  th { background: var(--surface-card-strong); font-weight: 800; color: var(--text-primary); white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  td { color: var(--text-secondary); }
+  td.status { color: #fdba74; font-weight: 700; white-space: nowrap; }
+  td.status.done { color: var(--cyan-bright); }
+
+  /* ---------- panels ---------- */
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+  .panel { border-radius: var(--radius); padding: 20px 22px; }
+  .panel h3 { font-size: 15px; font-weight: 800; margin: 0 0 10px; }
+  .panel ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--text-secondary); }
+  .panel li { padding: 3px 0; }
+  .panel .fine { font-size: 12px; color: var(--text-muted); margin: 10px 0 0; }
+  .panel a { color: #fdba74; text-decoration: none; border-bottom: 1px dotted var(--border-accent); }
+  .panel a:hover { color: var(--coral-bright); }
+  code { background: rgba(249,115,22,.12); color: #fdba74; padding: 1px 5px; border-radius: 5px; font-size: 12px; }
+
+  /* ---------- licenses ---------- */
+  .lic-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+  .lic-card { border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+  .lic-thumb { display: block; height: 176px; padding: 10px; background: #F1F4F8; border-bottom: 1px solid var(--border-subtle); }
+  .lic-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .lic-body { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+  .lic-body h3 { font-size: 15.5px; font-weight: 800; margin: 10px 0 3px; }
+  .lic-body .en { font-size: 11.5px; color: var(--text-muted); margin: 0 0 11px; line-height: 1.5; }
+  .lic-dl { margin: 0 0 13px; font-size: 12.5px; }
+  .lic-dl div { display: flex; gap: 9px; padding: 3px 0; border-bottom: 1px dashed var(--border-subtle); }
+  .lic-dl div:last-child { border-bottom: none; }
+  .lic-dl dt { flex: none; width: 68px; color: var(--text-muted); }
+  .lic-dl dd { margin: 0; color: var(--text-secondary); }
+  .lic-file { margin-top: auto; font-size: 12.5px; font-weight: 700; text-decoration: none; color: #fdba74; }
+  .lic-file:hover { text-decoration: underline; }
+  .lic-tag { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+  .lic-tag.own { color: var(--cyan-bright); background: rgba(0,229,204,.1); }
+  .lic-tag.partner { color: #fbbf24; background: rgba(251,191,36,.1); }
+  .lic-tag.neutral { color: #c4b5fd; background: rgba(196,181,253,.1); }
+  .lic-note { margin-top: 14px; background: rgba(23,32,48,.7); border: 1px dashed var(--border-subtle); border-radius: 12px; padding: 14px 18px; font-size: 12.5px; color: var(--text-secondary); }
+  .lic-note b { color: var(--text-primary); }
+
+  /* ---------- contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: 210px 1fr; gap: 24px; align-items: start; }
+  .qr-box { border-radius: var(--radius); padding: 14px; text-align: center; }
+  .qr-box .qr-white { background: #fff; border-radius: 8px; padding: 8px; }
+  .qr-box img { width: 100%; max-width: 176px; height: auto; display: block; margin: 0 auto; }
+  .qr-box p { font-size: 11.5px; color: var(--text-muted); margin: 10px 0 0; }
+  .clist { list-style: none; margin: 0; padding: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-subtle); background: var(--surface-card); }
+  .clist li { display: flex; gap: 14px; align-items: baseline; padding: 13px 18px; border-bottom: 1px dashed var(--border-subtle); font-size: 13.5px; }
+  .clist li:last-child { border-bottom: none; }
+  .clist b { flex: none; width: 84px; color: var(--text-primary); }
+  .clist span, .clist a { color: var(--text-secondary); }
+  .clist a { text-decoration: none; border-bottom: 1px dotted var(--border-subtle); }
+  .clist a:hover { color: var(--coral-bright); border-bottom-color: var(--coral-bright); }
+
+  footer { margin-top: 56px; border-top: 1px solid var(--border-subtle); padding: 20px 0 34px; }
+  footer .wrap { display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+  footer a { color: var(--text-secondary); text-decoration: none; margin-left: 12px; }
+  footer a:hover { color: var(--coral-bright); }
+  .lang-note { font-size: 11px; color: var(--text-muted); margin-top: 14px; opacity: .8; }
+
+  /* ---------- RTL ---------- */
+  [dir="rtl"] th, [dir="rtl"] td { text-align: right; }
+  [dir="rtl"] .panel ul { padding-left: 0; padding-right: 18px; }
+  [dir="rtl"] footer a { margin-left: 0; margin-right: 12px; }
+
+  @media (max-width: 900px) {
+    .slots, .lic-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .meta-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .two { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    .hero { padding: 28px 0 4px; }
+    .hero-card { padding: 26px 20px 24px; }
+    .hero h1 { font-size: 27px; }
+    .slots, .lic-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .qr-box { max-width: 240px; }
+    .slot { min-height: 0; }
+    .clist li { flex-direction: column; gap: 2px; }
+    .clist b { width: auto; }
+    .steps-label { display: none; }
+  }
+</style>
+</head>
+<body class="bg-stars bg-nebula" data-page="box">
+
+<div class="page">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" data-i18n-label="b_brand_aria" aria-label="Klaoli Box 介绍页顶部">
+      <span class="brand-logo"><img src="../assets/klaoli-box-logo.png" alt="Klaoli Box 项目产权 Logo：红色笔触与虾形图案，下方为 Klaoli 字样" data-i18n-alt="c_logo_alt"></span>
+      <span class="brand-txt">
+        <b class="title-gradient">Klaoli Box</b>
+        <small data-i18n="b_brand_sub">Agent Box · Intro / 占位版</small>
+      </span>
+    </a>
+    <div class="head-right">
+      <span class="steps-label" data-i18n="b_steps_label">页面状态</span>
+      <div class="steps" data-i18n-label="b_steps_aria" aria-label="页面状态：结构已就位，核心内容待补，独立产品页待建">
+        <span class="step done"><i>1</i><span data-i18n="b_step1">结构</span></span>
+        <span class="step active"><i>2</i><span data-i18n="b_step2">内容</span></span>
+        <span class="step idle"><i>3</i><span data-i18n="b_step3">产品页</span></span>
+      </div>
+      <select id="lang-select" class="lang-select" aria-label="界面语言">
+        <option value="en">English</option>
+        <option value="zh-CN" selected>简体中文</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="ja-JP">日本語</option>
+        <option value="es">Español</option>
+        <option value="pt-BR">Português (BR)</option>
+        <option value="ko">한국어</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="hi">हिन्दी</option>
+        <option value="ar">العربية</option>
+        <option value="it">Italiano</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="nl">Nederlands</option>
+        <option value="fa">فارسی</option>
+        <option value="tr">Türkçe</option>
+        <option value="uk">Українська</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="pl">Polski</option>
+        <option value="th">ไทย</option>
+        <option value="ru">Русский</option>
+        <option value="sv">Svenska</option>
+      </select>
+      <nav class="navlinks" aria-label="页内导航">
+        <a href="#licenses" data-i18n="c_nav_licenses">企业证照</a>
+        <a href="#contact" data-i18n="c_nav_contact">联系方式</a>
+        <a href="../index.html" data-i18n="c_nav_overview">项目总览</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <!-- hero：仿 WelcomeStep 居中卡片，使用项目产权 Logo -->
+  <section class="hero" style="margin-top:0">
+    <div class="hero-card card-surface">
+      <div class="hero-logo"><img src="../assets/klaoli-box-logo.png" alt="Klaoli Box 项目产权 Logo：红色笔触与虾形图案，下方为 Klaoli 字样" data-i18n-alt="c_logo_alt"></div>
+      <h1>Klaoli <span class="title-gradient">Box</span></h1>
+      <p class="h1sub" data-i18n="b_h1sub">Agent Box 项目 · 介绍页占位版本</p>
+      <p class="lead" data-i18n="b_lead">本页只搭建页面骨架与视觉风格，产品定位、功能、规格、图片与商务信息一概留空，待资料确认后逐项填入。企业证照与联系方式见页面下方。</p>
+      <div class="state"><span class="dot"></span><span data-i18n="b_state">当前状态：结构已就位 · 核心内容待补充</span></div>
+      <div class="actions">
+        <a class="btn btn-gradient" style="color:#fff" href="https://github.com/KlaoliBox/clawbox_run_build" target="_blank" rel="noopener noreferrer"><span data-i18n="b_btn_repo">查看代码仓库</span>
+          <svg viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-quiet" href="../index.html"><span data-i18n="c_btn_back">返回项目总览</span>
+          <svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
+        </a>
+      </div>
+      <p class="logo-caption" data-i18n="c_logo_note">Klaoli Box 项目产权标识（非公司标识）</p>
+    </div>
+  </section>
+
+  <div class="meta-grid">
+    <div class="meta-item card-surface"><small data-i18n="b_meta1">站点归属</small><b data-i18n="c_badge_own">本公司项目</b></div>
+    <div class="meta-item card-surface"><small data-i18n="b_meta2">页面版本</small><b data-i18n="b_meta_v2">占位版 / 无产品内容</b></div>
+    <div class="meta-item card-surface"><small data-i18n="b_meta3">视觉参考</small><b data-i18n="b_meta_v3">仓库 qianduan 向导</b></div>
+    <div class="meta-item card-surface"><small data-i18n="b_meta4">代码仓库</small><b>clawbox_run_build</b></div>
+  </div>
+
+  <!-- 内容槽位：核心介绍内容全部留空 -->
+  <section aria-labelledby="slots-h">
+    <div class="sec-head">
+      <span class="kicker" data-i18n="b_slots_k">Content Slots / 内容槽位</span>
+      <h2 id="slots-h" data-i18n="b_slots_h">页面内容槽位</h2>
+      <p data-i18n="b_slots_p">正式介绍页预留的六个内容位，目前均为空。在资料到位前不会填入推测性描述，也不会用示意图顶替。</p>
+    </div>
+    <div class="slots">
+      <div class="slot"><span class="num">SLOT 01</span><h3 data-i18n="b_s1">一句话产品定位</h3><span class="empty" data-i18n="c_empty">待补充</span></div>
+      <div class="slot"><span class="num">SLOT 02</span><h3 data-i18n="b_s2">核心能力与使用场景</h3><span class="empty" data-i18n="c_empty">待补充</span></div>
+      <div class="slot"><span class="num">SLOT 03</span><h3 data-i18n="b_s3">硬件 / 软件规格</h3><span class="empty" data-i18n="c_empty">待补充</span></div>
+      <div class="slot"><span class="num">SLOT 04</span><h3 data-i18n="b_s4">产品照片与界面截图</h3><span class="empty" data-i18n="c_empty">待补充</span></div>
+      <div class="slot"><span class="num">SLOT 05</span><h3 data-i18n="b_s5">上手流程 / 使用说明</h3><span class="empty" data-i18n="c_empty">待补充</span></div>
+      <div class="slot"><span class="num">SLOT 06</span><h3 data-i18n="b_s6">获取方式 / 商务入口</h3><span class="empty" data-i18n="c_empty">待补充</span></div>
+    </div>
+  </section>
+
+  <!-- 独立产品页面：明确留空，不造空链接 -->
+  <section aria-labelledby="product-h">
+    <div class="sec-head">
+      <span class="kicker" data-i18n="b_prod_k">Product Page / 产品页面</span>
+      <h2 id="product-h" data-i18n="b_prod_h">独立产品详情页</h2>
+      <p data-i18n="b_prod_p">按你的要求，产品页面同样保持空置；此处仅登记它的存在与状态。</p>
+    </div>
+    <div class="product-void">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h8"/><path d="M8 17h4"/></svg>
+      <h3 data-i18n="b_void_h">产品页面 · 空</h3>
+      <p data-i18n="b_void_p">独立产品详情页尚未创建，本页不设置指向它的跳转链接（避免出现点了没有反应的入口）。待产品资料确定后，可在此处新建页面并补上真实链接。</p>
+      <span class="void-chip" data-i18n="b_void_chip">状态：待建 · 无跳转入口</span>
+    </div>
+  </section>
+
+  <!-- 待补资料清单 -->
+  <section aria-labelledby="list-h">
+    <div class="sec-head">
+      <span class="kicker" data-i18n="b_list_k">Checklist / 待补资料</span>
+      <h2 id="list-h" data-i18n="b_list_h">待补资料清单</h2>
+      <p data-i18n="b_list_p">后续按此表提供素材即可逐格填充；未提供的一律保持「待提供」。</p>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th data-i18n="b_th1">素材与需要的内容</th><th data-i18n="b_th2">状态</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-i18n="b_r1">产品名称与一句话定位 · 中文文案（可选英文版）</td><td class="status" data-i18n="c_pending">待提供</td></tr>
+          <tr><td data-i18n="b_r2">项目简介 · 100–200 字说明</td><td class="status" data-i18n="c_pending">待提供</td></tr>
+          <tr><td data-i18n="b_r3">功能与卖点 · 3–6 条，每条含标题与简述</td><td class="status" data-i18n="c_pending">待提供</td></tr>
+          <tr><td data-i18n="b_r4">规格参数 · 参数表或清单</td><td class="status" data-i18n="c_pending">待提供</td></tr>
+          <tr><td data-i18n="b_r5">产品图片 · 产品照、细节照、界面截图等图片文件</td><td class="status" data-i18n="c_pending">待提供</td></tr>
+          <tr><td data-i18n="b_r6">品牌素材 · Logo 文件与品牌色值</td><td class="status done" data-i18n="c_provided">已提供</td></tr>
+          <tr><td data-i18n="b_r7">外部链接 · 文档、下载、购买等真实 URL</td><td class="status" data-i18n="c_pending">待提供</td></tr>
+          <tr><td data-i18n="b_r8">发布状态 · 是否已发布、时间与区域</td><td class="status" data-i18n="c_pending">待提供</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 已知事实 / 信息边界 -->
+  <section aria-labelledby="boundary-h">
+    <div class="sec-head">
+      <span class="kicker" data-i18n="b_bound_k">Scope / 信息来源</span>
+      <h2 id="boundary-h" data-i18n="b_bound_h">已知事实与信息边界</h2>
+      <p data-i18n="b_bound_p">说明本页依据的信息来源、视觉参考对象，以及刻意留白的部分。</p>
+    </div>
+    <div class="two">
+      <div class="panel card-surface">
+        <h3 data-i18n="b_facts_h">本页依据的已知事实</h3>
+        <ul>
+          <li data-i18n="b_f1">这是本公司的第三个项目，页面名称为 Klaoli Box，主题为 Agent Box。</li>
+          <li data-i18n="b_f2">项目对应公开代码仓库 KlaoliBox/clawbox_run_build；仓库名沿用原名称，未随页面名称更改。</li>
+          <li data-i18n="b_f3">产品详细资料与图片尚未提供，本页为占位版本。</li>
+          <li data-i18n="b_f4">Klaoli Box 项目产权 Logo 已提供，用于本页与总览页；产品照片仍待补。</li>
+        </ul>
+        <p class="fine" data-i18n="b_facts_fine">视觉与排布参考仓库内 qianduan 前端的深色配色、sticky 页头、居中卡片与状态卡网格。该前端为上游开源项目；本页仅借鉴配色与排布语言，未使用其 Logo 图片、字体、业务代码或功能文案。</p>
+      </div>
+      <div class="panel card-surface">
+        <h3 data-i18n="b_no_h">刻意不做的事</h3>
+        <ul>
+          <li data-i18n="b_n1">不编造功能、参数、价格、发布时间或客户案例。</li>
+          <li data-i18n="b_n2">不使用假的产品图或示意图；页面仅使用已提供的项目产权 Logo。</li>
+          <li data-i18n="b_n3">不设置点了没有反应的按钮、表单或「立即购买」入口。</li>
+          <li data-i18n="b_n4">不把仓库内设备端向导的业务内容写成产品介绍。</li>
+          <li data-i18n="b_n5">不把合作公司站点的产能与认证作为本公司成果表述；其证照仅在下方按主体单独公示。</li>
+        </ul>
+        <p class="fine" data-i18n="b_no_fine">正式内容到位后，可逐项替换六个内容槽位，并新建独立产品详情页。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 企业证照与资质 -->
+  <section id="licenses" aria-labelledby="lic-h">
+    <div class="sec-head">
+      <span class="kicker" data-i18n="b_lic_k">Licenses / 企业证照</span>
+      <h2 id="lic-h" data-i18n="c_licenses_h">企业证照与资质</h2>
+      <p data-i18n="c_licenses_p">以下为三家相关法律主体的证照原件，点击图片可查看大图；证照分属不同法律主体，公示仅为便于核验，不代表彼此隶属、代理或担保关系。</p>
+    </div>
+    <div class="lic-grid">
+
+      <article class="lic-card card-surface">
+        <a class="lic-thumb" href="../assets/hk-wokson-ci.png" target="_blank" rel="noopener" data-i18n-title="c_zoom" title="点击查看大图">
+          <img src="../assets/hk-wokson-ci.png" alt="企业证照原件图片" data-i18n-alt="c_alt_doc" loading="lazy">
+        </a>
+        <div class="lic-body">
+          <span class="lic-tag own" data-i18n="c_tag_own">本公司署名主体</span>
+          <h3 data-i18n="c_name_hk">香港沃興科技有限公司</h3>
+          <p class="en" data-i18n="c_name_hk_alt">Hong Kong wokson Technology Co., Limited</p>
+          <dl class="lic-dl">
+            <div><dt data-i18n="c_lbl_cert">证照</dt><dd data-i18n="c_license_cert">公司註冊證明書</dd></div>
+            <div><dt data-i18n="c_lbl_no">编号</dt><dd>81564625</dd></div>
+            <div><dt data-i18n="c_lbl_date">发出日期</dt><dd>2026 年 11 月 10 日</dd></div>
+            <div><dt data-i18n="c_lbl_authority">签发机关</dt><dd>香港特別行政區公司註冊處</dd></div>
+          </dl>
+          <a class="lic-file" href="../assets/hk-wokson-ci.pdf" target="_blank" rel="noopener" data-i18n="c_pdf">查看 PDF 原件 ↗</a>
+        </div>
+      </article>
+
+      <article class="lic-card card-surface">
+        <a class="lic-thumb" href="../assets/license-yusheng.jpg" target="_blank" rel="noopener" data-i18n-title="c_zoom" title="点击查看大图">
+          <img src="../assets/license-yusheng.jpg" alt="企业证照原件图片" data-i18n-alt="c_alt_doc" loading="lazy">
+        </a>
+        <div class="lic-body">
+          <span class="lic-tag neutral" data-i18n="c_tag_neutral">境内公司</span>
+          <h3 data-i18n="c_name_ys">渝昇（中山）科技有限公司</h3>
+          <p class="en" data-i18n="c_license_biz">营业执照（副本）</p>
+          <p class="en" data-i18n="c_ys_note">「Yusheng」为中文名称的罗马字转写；该公司无官方外文法定名称。</p>
+          <dl class="lic-dl">
+            <div><dt data-i18n="c_lbl_code">信用代码</dt><dd>91442000MAKJR9PG2T</dd></div>
+            <div><dt data-i18n="c_lbl_founded">成立日期</dt><dd>2026 年 8 月 11 日</dd></div>
+            <div><dt data-i18n="c_lbl_type">类型</dt><dd data-i18n="c_type_a">有限责任公司（自然人独资）</dd></div>
+          </dl>
+          <a class="lic-file" href="../assets/license-yusheng.jpg" target="_blank" rel="noopener" data-i18n="c_fullimg">查看营业执照原图 ↗</a>
+        </div>
+      </article>
+
+      <article class="lic-card card-surface">
+        <a class="lic-thumb" href="../assets/license-hongxiang.jpg" target="_blank" rel="noopener" data-i18n-title="c_zoom" title="点击查看大图">
+          <img src="../assets/license-hongxiang.jpg" alt="企业证照原件图片" data-i18n-alt="c_alt_doc" loading="lazy">
+        </a>
+        <div class="lic-body">
+          <span class="lic-tag partner" data-i18n="c_tag_partner">合作公司 · 工厂站点主体</span>
+          <h3 data-i18n="c_name_hx">中山市弘翔电器有限公司</h3>
+          <p class="en" data-i18n="c_license_biz">营业执照（副本）</p>
+          <dl class="lic-dl">
+            <div><dt data-i18n="c_lbl_code">信用代码</dt><dd>91442000MA54Y3P02T</dd></div>
+            <div><dt data-i18n="c_lbl_founded">成立日期</dt><dd>2020 年 7 月 3 日</dd></div>
+            <div><dt data-i18n="c_lbl_type">类型</dt><dd data-i18n="c_type_b">有限责任公司（自然人投资或控股）</dd></div>
+          </dl>
+          <a class="lic-file" href="../assets/license-hongxiang.jpg" target="_blank" rel="noopener" data-i18n="c_fullimg">查看营业执照原图 ↗</a>
+        </div>
+      </article>
+
+    </div>
+    <div class="lic-note"><b data-i18n="c_note_h">关于资质</b>：<span data-i18n="c_note">合作公司站点以文字公示 ISO 9001、IATF 16949、ISO 13485、UL、RoHS、REACH 等认证信息；本页未附证书原件，实际有效状态以该站点及发证机构为准。目前收录上述 3 份主体证照，如另有资质证书原件，待提供后补入。</span></div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="sec-head">
+      <span class="kicker" data-i18n="b_ct_k">Contact / 联系方式</span>
+      <h2 id="contact-h" data-i18n="c_contact_h">联系方式</h2>
+      <p data-i18n="c_contact_p">项目咨询、资料补充与站点内容相关问题，可通过以下任一渠道联系。</p>
+    </div>
+    <div class="contact-grid">
+      <div class="qr-box card-surface">
+        <div class="qr-white"><img src="../assets/wechat-qr.jpg" alt="微信个人二维码，扫码添加好友" data-i18n-alt="c_qr_alt" loading="lazy"></div>
+        <p data-i18n="c_qr_cap">微信扫码添加</p>
+      </div>
+      <ul class="clist">
+        <li><b data-i18n="c_ct_wechat">微信</b><span>zys275</span></li>
+        <li><b data-i18n="c_ct_phone">手机</b><span><a href="tel:+8613267622865">+86 13267622865</a> / <a href="tel:+18329146866">+1 8329146866</a></span></li>
+        <li><b data-i18n="c_ct_email">邮箱</b><span><a href="mailto:klaoli@foxmail.com">klaoli@foxmail.com</a></span></li>
+        <li><b data-i18n="c_ct_x">推特 / X</b><span><a href="https://x.com/GYvshin75056" target="_blank" rel="noopener noreferrer">@GYvshin75056</a></span></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="b_foot_main">Klaoli Box · Agent Box 项目介绍（占位版）</span> · <span data-i18n="c_name_hk">香港沃興科技有限公司</span>
+    <span><span data-i18n="b_foot_sites">其他站点：</span>
+      <a href="../index.html" data-i18n="c_nav_overview">项目总览</a>
+      <a href="../klaoli输入法/index.html">Klaoli 输入法</a>
+      <a href="../pcb工厂/index.html" data-i18n="b_foot_hx">中山弘翔电器（合作公司站点）</a>
+    </span>
+    <span class="lang-note" data-i18n="c_lang_note">语言列表参考 OpenClaw 文档站语言选择器，共 22 种。</span>
+  </div>
+</footer>
+
+</div>
+
+<script src="../assets/i18n.js"></script>
+<script>SITE_I18N.init();</script>
+</body>
+</html>
