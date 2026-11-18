@@ -54,7 +54,10 @@
   .hero-left { flex: 1.2; }
   .hero-right { flex: 1; text-align: center; }
   .hero-right img { max-width: 100%; height: auto; }
-  .hero-right video {
+  .why-grid { display: flex; gap: 34px; align-items: flex-start; }
+  .why-left { flex: 1.35; min-width: 0; }
+  .why-right { flex: 1; min-width: 250px; }
+  .hero-right video, .why-right video {
     display: block; width: 100%; height: auto;
     border-radius: 14px; border: 1px solid var(--line);
     box-shadow: 0 10px 30px rgba(27,36,48,.12);
@@ -213,6 +216,8 @@
     .nav a { margin-left: 12px; }
     .nav .tag { display: none; }
     .tab-panel { padding: 20px 18px; }
+    .why-grid { flex-direction: column; gap: 22px; }
+    .why-right { min-width: 0; }
   }
 </style>
 </head>
@@ -257,8 +262,7 @@
       <p class="meta" data-i18n="meta"></p>
     </div>
     <div class="hero-right">
-      <video id="demoVideo" src="klaoli-demo-mixed.mp4" poster="klaoli-demo-poster-mixed.png"
-             autoplay loop muted playsinline></video>
+      <img src="klaoli_logo_trans.png" alt="Klaoli logo">
     </div>
   </div>
 
@@ -267,6 +271,8 @@
     <h2 data-i18n="why_t"></h2>
     <p class="h2sub" data-i18n="why_s"></p>
 
+    <div class="why-grid">
+    <div class="why-left">
     <div class="tabs">
       <button class="tab-btn active" id="bt1" onclick="showTab(1)" data-i18n="tab1t"></button>
       <button class="tab-btn" id="bt2" onclick="showTab(2)" data-i18n="tab2t"></button>
@@ -279,6 +285,7 @@
         <li data-i18n-html="w1l2"></li>
         <li data-i18n-html="w1l3"></li>
         <li data-i18n-html="w1l4"></li>
+        <li data-i18n-html="w1l5"></li>
       </ul>
     </div>
 
@@ -306,6 +313,12 @@
         <li data-i18n-html="w3l3"></li>
         <li data-i18n-html="w3l4"></li>
       </ul>
+    </div>
+    </div>
+    <div class="why-right">
+      <video id="demoVideo" src="klaoli-demo-mixed.mp4" poster="klaoli-demo-poster-mixed.png"
+             autoplay loop muted playsinline></video>
+    </div>
     </div>
   </section>
 
@@ -410,6 +423,7 @@ vi: {
   w1l2: "Hơn 64.000 từ thuần Việt được gợi ý nguyên từ, tự động chèn khoảng trắng giữa các âm tiết.",
   w1l3: "Âm tiết chưa trọn vẫn có gợi ý: gõ <b>hoc</b> đã thấy <b>học</b>, gõ <b>h</b> đã thấy các từ bắt đầu bằng h-.",
   w1l4: "Ít thao tác hơn Unikey / EVkey: không phải bấm phím dấu cho từng âm tiết.",
+  w1l5: "Gõ liền không cần khoảng trắng — cụm từ dài cũng viết một mạch, bộ gõ tự chèn khoảng trắng đúng chỗ.",
   w2p: "Klaoli đọc được hơn 4.800 chữ Nôm và trọn bộ từ vựng Hán Nôm cổ. Kiểu viết hỗn hợp chữ Hán pha quốc ngữ dưới đây <b>chưa bao giờ trở thành thể thức chính thức</b>, nhưng thời Hồ Chí Minh, nhiều nhà cách mạng và trí thức Việt Nam — kể cả chính Hồ Chí Minh — vẫn dùng nó.",
   w2l1: "Gõ mã Latinh không dấu ra chữ Hán kèm phiên âm: <b>hocsinh → 学生 học sinh</b>.",
   w2l2: "Chế độ Hán Nôm thuần dành cho văn bản cổ: chỉ chữ Hán và chữ Nôm, không lẫn quốc ngữ.",
@@ -481,6 +495,7 @@ zh: {
   w1l2: "64,000+ 越南语本土词条整词联想，音节之间自动加空格。",
   w1l3: "未完成音节照样提示：打 <b>hoc</b> 已见 <b>học</b>，打 <b>h</b> 即见 h- 开头的词。",
   w1l4: "比 Unikey / EVkey 少一步：不用逐音节按声调键。",
+  w1l5: "免空格——整句词组连写输入，不用按空格分音节，空格由输入法自动补齐。",
   w2p: "Klaoli 支持超过 4,800 个喃字与整套汉喃古籍词汇。下面这种汉字夹国语字的混写风格<b>从未成为正式文体</b>，但在胡志明时代，许多越南革命者和知识分子——包括胡志明本人——都使用过它。",
   w2l1: "输入无调拉丁编码，得到带注音汉字：<b>hocsinh → 学生 học sinh</b>。",
   w2l2: "纯汉喃模式专为古籍准备：只出汉字与喃字，不夹国语字。",
@@ -551,6 +566,7 @@ zt: {
   w1l2: "64,000+ 越南語本土詞條整詞聯想，音節之間自動加空格。",
   w1l3: "未完成音節照樣提示：打 <b>hoc</b> 已見 <b>học</b>，打 <b>h</b> 即見 h- 開頭的詞。",
   w1l4: "比 Unikey / EVkey 少一步：不用逐音節按聲調鍵。",
+  w1l5: "免空格——整句詞組連寫輸入，不用按空格分音節，空格由輸入法自動補齊。",
   w2p: "Klaoli 支持超過 4,800 個喃字與整套漢喃古籍詞彙。下面這種漢字夾國語字的混寫風格<b>從未成爲正式文體</b>，但在胡志明時代，許多越南革命者和知識分子——包括胡志明本人——都使用過它。",
   w2l1: "輸入無調拉丁編碼，得到帶注音漢字：<b>hocsinh → 學生 học sinh</b>。",
   w2l2: "純漢喃模式專爲古籍準備：只出漢字與喃字，不夾國語字。",
@@ -622,6 +638,7 @@ en: {
   w1l2: "64,000+ native Vietnamese words suggested as whole words, with spaces inserted automatically between syllables.",
   w1l3: "Incomplete syllables still suggest: type <b>hoc</b> to see <b>học</b>, or <b>h</b> to see words starting with h-.",
   w1l4: "Fewer keystrokes than Unikey / EVkey: no tone-key presses for every syllable.",
+  w1l5: "Space-free typing — write long phrases in one go without pressing space; the IME inserts spaces automatically.",
   w2p: "Klaoli reads more than 4,800 Nôm characters and the full classical Hán Nôm vocabulary. The mixed style below — Chinese characters interspersed with quốc ngữ — <b>never became an official writing form</b>, yet in the Hồ Chí Minh era many Vietnamese revolutionaries and intellectuals — including Hồ Chí Minh himself — used it.",
   w2l1: "Type unaccented Latin code, get glossed Chinese: <b>hocsinh → 学生 học sinh</b>.",
   w2l2: "A pure Hán Nôm mode for classical texts: only Chinese and Nôm characters, no quốc ngữ mixed in.",
@@ -693,6 +710,7 @@ ja: {
   w1l2: "64,000超の純ベトナム語を単語単位で候補表示し、音節間のスペースも自動挿入。",
   w1l3: "未完成の音節でも候補が出ます：<b>hoc</b> で <b>học</b>、<b>h</b> で h- で始まる語を表示。",
   w1l4: "Unikey / EVkey より操作が少ない：音節ごとの声調キー入力が不要。",
+  w1l5: "スペース不要 — 長いフレーズも一気に入力。スペースは自動で挿入されます。",
   w2p: "Klaoli は 4,800 超のチュノムと漢喃古典語彙全体をサポートします。下の写真のような漢字に国語字を混ぜた書き方は<b>正式な文体になったことは一度もありません</b>が、ホー・チ・ミンの時代には、ホー・チ・ミン自身を含む多くのベトナムの革命家・知識人がこの文体を使っていました。",
   w2l1: "声調なしラテンコードで注釈付き漢字を出力：<b>hocsinh → 学生 học sinh</b>。",
   w2l2: "古典向けの純漢喃モード：漢字とチュノムのみで、国語字は混ざりません。",
@@ -764,6 +782,7 @@ ko: {
   w1l2: "64,000+ 고유 베트남어 단어를 단어 단위로 추천하고, 음절 사이 공백도 자동 삽입.",
   w1l3: "미완성 음절도 추천됩니다: <b>hoc</b>로 <b>học</b> 확인, <b>h</b>로 h-로 시작하는 단어 표시.",
   w1l4: "Unikey / EVkey보다 조작이 적습니다: 음절마다 성조 키를 누를 필요가 없습니다.",
+  w1l5: "공백 없이 입력 — 긴 구문도 한 번에. 공백은 자동으로 삽입됩니다.",
   w2p: "Klaoli는 4,800+ 쯔놈과 한남 고전 어휘 전체를 지원합니다. 아래 사진과 같이 한자에 국어를 섞어 쓰는 혼용 서체는 <b>공식 문체로 정착한 적이 없지만</b>, 호 치 민 시대에는 호 치 민 본인을 포함한 많은 베트남 혁명가·지식인이 이 문체를 사용했습니다.",
   w2l1: "무성조 라틴 코드로 주석 달린 한자 출력: <b>hocsinh → 学生 học sinh</b>.",
   w2l2: "고전용 순수 한남 모드: 한자와 쯔놈만 사용, 국어가 섞이지 않습니다.",
