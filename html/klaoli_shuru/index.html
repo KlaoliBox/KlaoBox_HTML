@@ -257,7 +257,7 @@
       <p class="meta" data-i18n="meta"></p>
     </div>
     <div class="hero-right">
-      <video src="klaoli-demo.mp4" poster="klaoli-demo-poster.png"
+      <video id="demoVideo" src="klaoli-demo-mixed.mp4" poster="klaoli-demo-poster-mixed.png"
              autoplay loop muted playsinline></video>
     </div>
   </div>
@@ -851,6 +851,18 @@ function showTab(n) {
     document.getElementById("tp" + i).classList.toggle("active", i === n);
     document.getElementById("bt" + i).classList.toggle("active", i === n);
   });
+  var demoMap = {
+    1: ["klaoli-demo-vn.mp4", "klaoli-demo-poster-vn.png"],
+    2: ["klaoli-demo-mixed.mp4", "klaoli-demo-poster-mixed.png"],
+    3: ["klaoli-demo-nom.mp4", "klaoli-demo-poster-nom.png"]
+  };
+  var v = document.getElementById("demoVideo");
+  if (v && demoMap[n] && v.getAttribute("src") !== demoMap[n][0]) {
+    v.setAttribute("src", demoMap[n][0]);
+    v.setAttribute("poster", demoMap[n][1]);
+    v.load();
+    v.play();
+  }
 }
 
 (function init() {
