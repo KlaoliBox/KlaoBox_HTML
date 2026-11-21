@@ -200,6 +200,11 @@
   }
   .note b { color: var(--red-dark); }
 
+  /* ===== update notes ===== */
+  .upd-list { margin: 0; padding-left: 22px; }
+  .upd-list li { color: var(--ink-soft); font-size: 14.5px; margin: 10px 0; line-height: 1.65; }
+  .upd-list b { color: var(--red-dark); }
+
   /* ===== faq ===== */
   details { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
             padding: 14px 20px; margin-bottom: 10px; }
@@ -357,6 +362,19 @@
     <div class="note" data-i18n-html="note"></div>
   </section>
 
+  <!-- UPDATE -->
+  <section id="cap-nhat">
+    <h2 data-i18n="upd_t"></h2>
+    <p class="h2sub" data-i18n-html="upd_s"></p>
+    <div class="card">
+      <ul class="upd-list">
+        <li data-i18n-html="upd1"></li>
+        <li data-i18n-html="upd2"></li>
+        <li data-i18n-html="upd3"></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section id="faq">
     <h2 data-i18n="faq_t"></h2>
@@ -474,7 +492,12 @@ vi: {
   cred_hk: "Hong Kong wokson Technology Co., Limited — Giấy chứng nhận thành lập",
   cred_cn: "Yusheng (Zhongshan) Technology Co., Ltd. — Giấy phép kinh doanh",
   cred_view: "Bấm để xem đầy đủ",
-  footer: "Klaoli · xây dựng trên <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a> (BSD 3-Clause) · font <b>Văn Tân Tống thể</b> (SIL OFL 1.1) · miễn phí sử dụng, kể cả thương mại · <a href='../index.html'>Trang tổng quan</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>Hongxiang PCBA</a>"
+  footer: "Klaoli · xây dựng trên <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a> (BSD 3-Clause) · font <b>Văn Tân Tống thể</b> (SIL OFL 1.1) · miễn phí sử dụng, kể cả thương mại · <a href='../index.html'>Trang tổng quan</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>Hongxiang PCBA</a>",
+  upd_t: "Cập nhật 21/11/2026",
+  upd_s: "<b>klaoli.viet</b> là một phần mềm bộ gõ tiếng Việt độc lập. <b>Mỗi ngôn ngữ là một phần mềm riêng biệt</b>: thư mục cài đặt, dữ liệu và đăng ký hệ thống đều tách rời, không ảnh hưởng lẫn nhau và có thể cài cùng lúc.",
+  upd1: "Trong Win + Space, bộ gõ hiển thị là <b>klaoli.viet</b> (trước đây là <i>klaoli Han-Viet</i>).",
+  upd2: "Chương trình nằm trong thư mục <b>klaoli.viet</b>; từ điển và cấu hình nằm trong thư mục người dùng <b>klaoli.viet</b> tương ứng — hoàn toàn tách biệt với bộ gõ của các ngôn ngữ khác.",
+  upd3: "Nếu sau khi nâng cấp bộ gõ không xuất hiện, hãy <b>đăng xuất rồi đăng nhập lại</b> một lần để làm mới bộ nhớ đệm của hệ thống."
 },
 
 /* ================= 中文 ================= */
@@ -546,7 +569,12 @@ zh: {
   cred_hk: "香港沃興科技有限公司 — 公司注册证明书",
   cred_cn: "渝昇（中山）科技有限公司 — 营业执照",
   cred_view: "点击查看大图",
-  footer: "Klaoli · 基于 <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a>（BSD 3-Clause）构建 · <b>文津宋体</b>字体（SIL OFL 1.1）· 可免费商用 · <a href='../index.html'>网站总览</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>弘翔 PCBA</a>"
+  footer: "Klaoli · 基于 <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a>（BSD 3-Clause）构建 · <b>文津宋体</b>字体（SIL OFL 1.1）· 可免费商用 · <a href='../index.html'>网站总览</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>弘翔 PCBA</a>",
+  upd_t: "2026-11-21 更新",
+  upd_s: "<b>klaoli.viet</b> 是一款独立的越南语输入法软件。<b>每个语言的输入法都是各自独立的软件</b>：安装目录、数据目录与系统注册彼此分开，互不干扰，可同时安装。",
+  upd1: "在 Win + Space 列表中，输入法显示为 <b>klaoli.viet</b>（原 <i>klaoli Han-Viet</i>）。",
+  upd2: "程序安装在 <b>klaoli.viet</b> 目录；词典与配置位于用户目录下同名的 <b>klaoli.viet</b> 文件夹，与其他语言的输入法完全隔离。",
+  upd3: "升级后若输入法未出现，请<b>注销并重新登录</b>一次，刷新系统输入法缓存。"
 },
 /* ================= 繁體中文 ================= */
 zt: {
@@ -617,7 +645,12 @@ zt: {
   cred_hk: "香港沃興科技有限公司 — 公司註冊證明書",
   cred_cn: "渝昇（中山）科技有限公司 — 營業執照",
   cred_view: "點擊查看大圖",
-  footer: "Klaoli · 基於 <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a>（BSD 3-Clause）構建 · <b>文津宋體</b>字體（SIL OFL 1.1）· 可免費商用 · <a href='../index.html'>網站總覽</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>弘翔 PCBA</a>"
+  footer: "Klaoli · 基於 <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a>（BSD 3-Clause）構建 · <b>文津宋體</b>字體（SIL OFL 1.1）· 可免費商用 · <a href='../index.html'>網站總覽</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>弘翔 PCBA</a>",
+  upd_t: "2026-11-21 更新",
+  upd_s: "<b>klaoli.viet</b> 是一款獨立的越南語輸入法軟體。<b>每個語言的輸入法都是各自獨立的軟體</b>：安裝目錄、資料目錄與系統登錄彼此分開，互不干擾，可同時安裝。",
+  upd1: "在 Win + Space 清單中，輸入法顯示為 <b>klaoli.viet</b>（原 <i>klaoli Han-Viet</i>）。",
+  upd2: "程式安裝於 <b>klaoli.viet</b> 目錄；詞典與設定位於使用者目錄下同名的 <b>klaoli.viet</b> 資料夾，與其他語言的輸入法完全隔離。",
+  upd3: "升級後若輸入法未出現，請<b>登出並重新登入</b>一次，刷新系統輸入法快取。"
 },
 
 /* ================= ENGLISH ================= */
@@ -689,7 +722,12 @@ en: {
   cred_hk: "Hong Kong wokson Technology Co., Limited — Certificate of Incorporation",
   cred_cn: "Yusheng (Zhongshan) Technology Co., Ltd. — Business License",
   cred_view: "Click to view",
-  footer: "Klaoli · built on <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a> (BSD 3-Clause) · <b>Wenjin Song</b> font (SIL OFL 1.1) · free for any use, including commercial · <a href='../index.html'>Site directory</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>Hongxiang PCBA</a>"
+  footer: "Klaoli · built on <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a> (BSD 3-Clause) · <b>Wenjin Song</b> font (SIL OFL 1.1) · free for any use, including commercial · <a href='../index.html'>Site directory</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>Hongxiang PCBA</a>",
+  upd_t: "Update - 21 Nov 2026",
+  upd_s: "<b>klaoli.viet</b> is a standalone Vietnamese input method. <b>Each language has its own separate software</b>: install folder, data folder and system registration are all independent, so they never interfere and can be installed side by side.",
+  upd1: "In Win + Space the input method now appears as <b>klaoli.viet</b> (formerly <i>klaoli Han-Viet</i>).",
+  upd2: "The program is installed in a <b>klaoli.viet</b> folder; dictionaries and settings live in the matching <b>klaoli.viet</b> folder under your user profile, fully separated from input methods for other languages.",
+  upd3: "If the input method does not appear after upgrading, <b>sign out and sign in again</b> once to refresh the system input-method cache."
 },
 
 /* ================= NIHONGO ================= */
@@ -761,7 +799,12 @@ ja: {
   cred_hk: "香港沃興科技有限公司（Hong Kong wokson Technology Co., Limited） — 設立証明書",
   cred_cn: "渝昇（中山）科技有限公司（Yusheng） — 営業許可証",
   cred_view: "クリックで拡大表示",
-  footer: "Klaoli · <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a>（BSD 3-Clause）ベース · <b>文津宋体</b>フォント（SIL OFL 1.1）· 商用利用も含め無料 · <a href='../index.html'>サイト総覧</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>弘翔 PCBA</a>"
+  footer: "Klaoli · <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a>（BSD 3-Clause）ベース · <b>文津宋体</b>フォント（SIL OFL 1.1）· 商用利用も含め無料 · <a href='../index.html'>サイト総覧</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>弘翔 PCBA</a>",
+  upd_t: "2026-11-21 アップデート",
+  upd_s: "<b>klaoli.viet</b> は独立したベトナム語入力メソッドです。<b>言語ごとに別々のソフトウェア</b>で、インストール先・データフォルダー・システム登録はいずれも独立しており、相互に影響せず同時にインストールできます。",
+  upd1: "Win + Space の一覧では <b>klaoli.viet</b>（旧 <i>klaoli Han-Viet</i>）と表示されます。",
+  upd2: "プログラムは <b>klaoli.viet</b> フォルダーに、辞書と設定はユーザープロファイル内の同名 <b>klaoli.viet</b> フォルダーにあり、他言語の入力メソッドとは完全に分離されています。",
+  upd3: "アップグレード後に入力方法が表示されない場合は、<b>サインアウトして再度サインイン</b>してください（システムの入力キャッシュが更新されます）。"
 },
 
 /* ================= HANGUK ================= */
@@ -833,7 +876,12 @@ ko: {
   cred_hk: "홍콩 沃興科技有限公司 (Hong Kong wokson Technology Co., Limited) — 설립증명서",
   cred_cn: "渝昇(중산)科技有限公司 (Yusheng) — 영업허가증",
   cred_view: "클릭하여 크게 보기",
-  footer: "Klaoli · <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a>(BSD 3-Clause) 기반 · <b>문진송체</b> 폰트(SIL OFL 1.1) · 상업적 이용 포함 무료 · <a href='../index.html'>사이트 개요</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>홍샹 PCBA</a>"
+  footer: "Klaoli · <a href='https://github.com/rime/librime' target='_blank'>Rime / librime</a>(BSD 3-Clause) 기반 · <b>문진송체</b> 폰트(SIL OFL 1.1) · 상업적 이용 포함 무료 · <a href='../index.html'>사이트 개요</a> · <a href='../klaolibox/index.html'>Klaoli Box</a> · <a href='../hxdq/index.html'>홍샹 PCBA</a>",
+  upd_t: "2026-11-21 업데이트",
+  upd_s: "<b>klaoli.viet</b> 은 독립된 베트남어 입력기 소프트웨어입니다. <b>각 언어의 입력기는 서로 별개의 소프트웨어</b>로, 설치 폴더·데이터 폴더·시스템 등록이 모두 분리되어 서로 간섭하지 않으며 동시에 설치할 수 있습니다.",
+  upd1: "Win + Space 목록에 <b>klaoli.viet</b>(구 <i>klaoli Han-Viet</i>)로 표시됩니다.",
+  upd2: "프로그램은 <b>klaoli.viet</b> 폴더에, 사전과 설정은 사용자 프로필 안의 같은 이름 <b>klaoli.viet</b> 폴더에 있으며 다른 언어 입력기와 완전히 분리됩니다.",
+  upd3: "업그레이드 후 입력기가 보이지 않으면 <b>로그아웃 후 다시 로그인</b>해 주세요(시스템 입력기 캐시가 갱신됩니다)."
 }
 };
 
